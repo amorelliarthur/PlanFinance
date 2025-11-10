@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     return date.toLocaleDateString(navigator.language || 'pt-BR');
   }
 
-  let visibleCount = 10; // controla quantos itens aparecem por vez
+  let visibleCount = 20; // controla quantos itens aparecem por vez
 
   function renderTransactions(transactions) {
     // Ordena por data decrescente
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       transactionsTable.appendChild(loadMoreRow);
 
       document.getElementById('loadMoreBtn').addEventListener('click', () => {
-        visibleCount += 10;
+        visibleCount += 20;
         renderTransactions(transactions);
       });
     }
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       btn.addEventListener('click', async (e) => {
         const id = Number(e.target.dataset.id);
         await PlanFinanceDB.deleteTransaction(id);
-        visibleCount = 10; // reseta a visualização
+        visibleCount = 20; // reseta a visualização
         loadTransactions();
       });
     });
