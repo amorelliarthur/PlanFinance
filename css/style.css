@@ -1,0 +1,215 @@
+/* ---------- Layout geral ---------- */
+
+html {
+  background-color: #1f2933;
+}
+
+/* ---------- Header ---------- */
+header {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* ---------- Resumo (cards) ---------- */
+#summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+#summary article {
+  text-align: center;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+#summary strong {
+  font-size: 1.3rem;
+}
+
+/* efeito ao passar o mouse */
+article:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- Graficos ---------- */
+.charts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  max-width: 1100px;
+  margin: 0 auto 2rem;
+  padding: 0 0.5rem;
+  justify-content: center;
+}
+
+/* Todos os gráficos base */
+.chart {
+  flex: 1 1 30%; /* padrão: ocupa cerca de 1/3 da linha */
+  min-width: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Terceiro gráfico ocupa mais espaço */
+.chart:nth-child(3) {
+  flex: 1 1 40%;
+}
+
+/* Card de cada gráfico */
+.chart-card {
+  background: #111621;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  box-shadow: 0 6px 18px rgba(3, 8, 12, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  width: 100%;
+}
+
+/* ---------- Tabela de transações ---------- */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+th, td {
+  text-align: center;
+  padding: 0.5rem;
+  white-space: nowrap; /* evita quebra de texto */
+}
+
+td:last-child {
+  text-align: center;
+}
+
+td button {
+  margin: 0 0.25rem;
+}
+
+/* ---------- Botão buscar mais registros de transação ---------- */
+.btn-round {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-round:hover {
+  transform: scale(1.1);
+}
+
+
+/* ---------- Botão flutuante registrar transação ---------- */
+#btnAdd {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+}
+
+#btnAdd:hover {
+  transform: scale(1.1);
+}
+
+/* ---------- Modal ---------- */
+dialog {
+  max-width: 400px;
+  width: 90%;
+}
+
+dialog form label {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+dialog footer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+dialog footer button {
+  flex: 1;
+  max-width: 150px;
+}
+
+/* ---------- Footer ---------- */
+
+.app-footer {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #ccc;
+  font-size: 0.85rem;
+  padding: 0.5rem 0;
+}
+
+.app-footer p {
+  margin: 0;
+}
+
+
+/* ---------- Tabela responsiva ---------- */
+@media (max-width: 600px) {
+  table {
+    min-width: 500px;
+  }
+
+  th, td {
+    font-size: 0.85rem;
+    padding: 0.4rem;
+  }
+
+  /* bordas mais sutis */
+  table, th, td {
+    border: none;
+  }
+
+  tr {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* ---------- Grafico responsividade---------- */
+
+/* Tablet: 2 em cima + 1 embaixo */
+@media (max-width: 900px) {
+  .chart {
+    flex: 1 1 45%;
+  }
+
+  .chart:nth-child(3) {
+    flex: 1 1 100%; /* o terceiro ocupa a linha inteira */
+  }
+}
+
+/* Celular: um abaixo do outro */
+@media (max-width: 600px) {
+  .chart {
+    flex: 1 1 100%;
+  }
+}

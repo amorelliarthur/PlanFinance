@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PlanFinance</title>
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- Ícone -->
+  <!-- <link rel="icon" href="favicon.ico" type="image/x-icon"> -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+
+  <!-- PicoCSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+
+  <!-- Seu CSS opcional -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Chart.js (para o gráfico de resumo) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+  <header class="container">
+    <h1>📊 PlanFinance</h1>
+    <p>Seu gerenciador de finanças</p>
+  </header>
+
+  <main class="container">
+
+    <!-- Resumo -->
+    <section id="summary">
+      <article>
+        <h3>Despesas</h3>
+        <strong id="expenses">R$ 0,00</strong>
+      </article>
+
+      <article>
+        <h3>Receitas</h3>
+        <strong id="income">R$ 0,00</strong>
+      </article>
+
+      <article>
+        <h3>Saldo total</h3>
+        <strong id="balance">R$ 0,00</strong>
+      </article>
+    </section>
+
+    <section class="charts">
+      <div class="chart">
+        <div class="chart-card">
+          <canvas id="summaryChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart">
+        <div class="chart-card">
+          <canvas id="categoryChart"></canvas>
+        </div>
+      </div>
+
+      <div class="chart ">
+        <div class="chart-card">
+          <canvas id="monthlyChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- Filtros -->
+    <section id="filters" style="margin-bottom: 1rem;">
+      <form id="filterForm" class="grid">
+        <select id="filterType">
+          <option value="">Todos os tipos</option>
+          <option value="receita">Receita</option>
+          <option value="despesa">Despesa</option>
+        </select>
+
+        <input type="text" id="filterCategory" placeholder="Categoria" />
+
+        <input type="date" id="filterStartDate" />
+        <input type="date" id="filterEndDate" />
+
+        <button type="button" id="btnClearFilters" class="secondary">Limpar</button>
+      </form>
+    </section>
+
+    <!-- Lista de transações -->
+    <section>
+      <h2>Transações</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Categoria</th>
+              <th>Descrição</th>
+              <th>Valor</th>
+              <th>Data</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="transactions"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Botão flutuante para adicionar -->
+    <button id="btnAdd" class="secondary"
+      style="position:fixed;bottom:2rem;right:2rem;border-radius:50%;width:3rem;height:3rem;">
+      ➕
+    </button>
+
+  </main>
+
+  <!-- Modal de transação -->
+  <dialog id="transactionModal">
+    <article>
+      <header>
+        <h3 id="modalTitle">Nova transação</h3>
+      </header>
+      <form id="transactionForm">
+        <label>
+          Tipo:
+          <select id="type" required>
+            <option value="receita">Receita</option>
+            <option value="despesa">Despesa</option>
+          </select>
+        </label>
+
+        <label>
+          Categoria:
+          <input type="text" id="category" placeholder="Ex: Alimentação" required />
+        </label>
+
+        <label>
+          Descrição:
+          <input type="text" id="description" placeholder="Ex: Supermercado" />
+        </label>
+
+        <label>
+          Valor:
+          <input type="number" id="amount" step="0.01" min="0" required />
+        </label>
+
+        <label>
+          Data:
+          <input type="date" id="date" required />
+        </label>
+
+        <footer>
+          <button type="submit" class="primary">Salvar</button>
+          <button type="button" id="btnCancel" class="secondary">Cancelar</button>
+        </footer>
+      </form>
+    </article>
+  </dialog>
+
+  <!-- Scripts -->
+  <script src="js/db.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/chart.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
+
+  <footer class="app-footer">
+    <div class="container">
+      <p>PlanFinance — All rights reserved © <span id="year"></span></p>
+    </div>
+  </footer>
+</body>
+
+</html>
