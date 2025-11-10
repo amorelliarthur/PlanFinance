@@ -1,16 +1,22 @@
 const CACHE_NAME = 'PlanFinance-cache-v1';
+
+// Detecta automaticamente o caminho base
+const BASE_PATH = self.location.pathname.includes('/PlanFinance/')
+  ? '/PlanFinance'
+  : '';
+
 const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/favicon.ico',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
-  '/css/style.css',
-  '/js/app.js',
-  '/js/db.js',
-  '/js/ui.js',
-  '/js/chart.js',
+  `${BASE_PATH}/`,
+  `${BASE_PATH}/index.html`,
+  `${BASE_PATH}/manifest.json`,
+  `${BASE_PATH}/favicon.ico`,
+  `${BASE_PATH}/icons/icon-192.png`,
+  `${BASE_PATH}/icons/icon-512.png`,
+  `${BASE_PATH}/css/style.css`,
+  `${BASE_PATH}/js/app.js`,
+  `${BASE_PATH}/js/db.js`,
+  `${BASE_PATH}/js/ui.js`,
+  `${BASE_PATH}/js/chart.js`,
   'https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css',
   'https://cdn.jsdelivr.net/npm/chart.js'
 ];
@@ -39,6 +45,7 @@ self.addEventListener('activate', (event) => {
   self.clients.claim(); // garante que o SW controle imediatamente as páginas abertas
 });
 
+// Intercepta requisições e usa cache/offline
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     fetch(event.request)
@@ -54,7 +61,7 @@ self.addEventListener('fetch', (event) => {
         return caches.match(event.request).then((cachedResponse) => {
           if (cachedResponse) return cachedResponse;
           if (event.request.destination === 'document') {
-            return caches.match('/index.html');
+            return caches.match(`${BASE_PATH}/index.html`);
           }
         });
       })
